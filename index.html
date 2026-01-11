@@ -1,54 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test Tulip</title>
+<title>Lizzet ❤️</title>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: pink;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:radial-gradient(circle at bottom,#1b263b,#0b132b);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, sans-serif;
+  color:white;
 }
 
-button {
-  font-size: 24px;
-  padding: 15px 25px;
+/* tombol */
+button{
+  padding:16px 34px;
+  font-size:22px;
+  border:none;
+  border-radius:40px;
+  background:#ff5fa2;
+  color:white;
+  cursor:pointer;
+  z-index:10;
 }
 
-.tulip {
-  position: absolute;
-  bottom: 0;
-  font-size: 40px;
-  animation: naik 3s linear forwards;
+/* teks */
+h1{
+  margin-top:20px;
+  text-align:center;
+  font-size:26px;
+  opacity:0;
+  transition:opacity 2s ease;
 }
 
-@keyframes naik {
-  from { transform: translateY(0); }
-  to { transform: translateY(-600px); }
+/* tulip svg */
+.tulip{
+  position:absolute;
+  bottom:-120px;
+  width:60px;
+  animation:
+    naik linear forwards,
+    goyang 3s ease-in-out infinite,
+    mekar 1.4s ease-out;
+}
+
+@keyframes naik{
+  from{transform:translateY(0);}
+  to{transform:translateY(-130vh);}
+}
+
+@keyframes goyang{
+  0%{transform:rotate(-6deg);}
+  50%{transform:rotate(6deg);}
+  100%{transform:rotate(-6deg);}
+}
+
+@keyframes mekar{
+  from{scale:.2;opacity:0;}
+  to{scale:1;opacity:1;}
+}
+
+/* hp */
+@media(max-width:600px){
+  .tulip{width:45px;}
+  h1{font-size:22px;}
 }
 </style>
 </head>
 
 <body>
 
-<button onclick="muncul()">❤️ Klik</button>
+<button id="loveBtn">❤️ Tekan Love</button>
+<h1 id="text">Lizzet ❤️<br>I love you!</h1>
+
+<audio id="music" src="music.mp3" loop></audio>
 
 <script>
-function muncul() {
-  for (let i = 0; i < 10; i++) {
-    let b = document.createElement("div");
-    b.className = "tulip";
-    b.innerHTML = "🌷";
-    b.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(b);
-  }
-}
+const btn = document.getElementById("loveBtn");
+const text = document.getElementById("text");
+const music = document.getElementById("music");
+
+btn.onclick = () => {
+  btn.style.display="none";
+  text.style.opacity=1;
+  music.play();
+
+  setInterval(()=>{
+    for(let i=0;i<4;i++){
+      const t=document.createElement("div");
+      t.className="tulip";
+      t.style.left=Math.random()*100+"vw";
+      t.style.animationDuration=
+        (10+Math.random()*4)+"s, "+
+        (2+Math.random()*2)+"s, 1.4s";
+
+      t.innerHTML=`
+<svg viewBox="0 0 64 128" xmlns="http://www.w3.org/2000/svg">
+  <path d="M32 90 C28 70 10 60 10 40 C10 20 30 20 32 35
+           C34 20 54 20 54 40 C54 60 36 70 32 90Z"
+        fill="#ff6fae"/>
+  <rect x="30" y="90" width="4" height="30" fill="#3cb371"/>
+</svg>`;
+      document.body.appendChild(t);
+
+      setTimeout(()=>t.remove(),15000);
+    }
+  },400);
+};
 </script>
 
 </body>

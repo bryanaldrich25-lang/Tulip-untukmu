@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lizzet ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to top, #ffc1dc, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Tombol awal */
+#start {
+    font-size: 26px;
+    padding: 16px 28px;
+    background: #ff6fae;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    animation: pulse 1.2s infinite;
+    box-shadow: 0 10px 25px rgba(255,111,174,0.4);
+    z-index: 10;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* Pesan cinta */
+#message {
+    position: absolute;
+    top: 18%;
+    text-align: center;
+    font-size: 24px;
+    color: #ff4f9a;
+    opacity: 0;
+    line-height: 1.4;
+    animation: fadeIn 3s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Tulip */
+.tulip {
+    position: absolute;
+    bottom: -140px;
+    width: 48px;
+    animation:
+        floatUp linear forwards,
+        sway 3s ease-in-out infinite;
+    opacity: 0.95;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.85);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+        transform: translateY(-120vh) scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes sway {
+    0% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+    100% { transform: rotate(-4deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div id="start">Tekan love nya ❤️</div>
+
+<div id="message">
+    Lizzet ❤️<br>
+    i love you !
+</div>
+
+<audio id="music" src="teman-hidup.mp3"></audio>
+
+<script>
+const start = document.getElementById("start");
+const music = document.getElementById("music");
+const message = document.getElementById("message");
+
+const tulipSVG = `
+<svg viewBox="0 0 64 120" xmlns="http://www.w3.org/2000/svg">
+  <path d="M32 58 C12 40, 12 18, 32 8 C52 18, 52 40, 32 58Z" fill="#ff6fae"/>
+  <path d="M32 58 C22 42, 26 22, 32 18 C38 22, 42 42, 32 58Z" fill="#ff8fc4"/>
+  <rect x="30" y="58" width="4" height="55" fill="#3fa34d"/>
+</svg>
+`;
+
+start.addEventListener("click", () => {
+    start.style.display = "none";
+    message.style.opacity = 1;
+    music.play();
+
+    setInterval(() => {
+        const tulip = document.createElement("div");
+        tulip.className = "tulip";
+        tulip.innerHTML = tulipSVG;
+        tulip.style.left = Math.random() * 100 + "vw";
+        tulip.style.animationDuration = (7 + Math.random() * 3) + "s";
+        document.body.appendChild(tulip);
+
+        setTimeout(() => tulip.remove(), 10000);
+    }, 700);
+});
+</script>
+
+</body>
+</html>

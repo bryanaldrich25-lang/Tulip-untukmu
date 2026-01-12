@@ -4,79 +4,109 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lizzet ❤️</title>
+
 <style>
+/* ====== STYLE ASLI (digabung) ====== */
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
+  background:#0b1020;
   height:100vh;
   overflow:hidden;
-  background:radial-gradient(circle at top,#1b2a4a,#050b1a);
-  font-family:Arial, sans-serif;
-  color:white;
+  font-family:system-ui,Arial,sans-serif;
 }
-.text{
-  position:absolute;
-  top:35%;
-  width:100%;
-  text-align:center;
-  font-size:26px;
-  z-index:10;
+.night{
+  position:fixed; inset:0;
+  background:radial-gradient(circle at bottom, #1b2440 0%, #070b18 60%);
 }
-.flower{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:220px;
-  filter:drop-shadow(0 0 15px pink);
+
+/* ====== TOMBOL & TEKS ====== */
+#start{
+  position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#ff4d88; color:#fff;
+  padding:14px 32px; border-radius:30px;
+  font-size:20px; cursor:pointer; z-index:9999;
+  box-shadow:0 0 20px rgba(255,77,136,.6);
 }
-.heart{
-  position:absolute;
-  color:pink;
-  opacity:.7;
-  animation:float 10s linear infinite;
+#loveText{
+  position:fixed; top:14%; width:100%;
+  text-align:center; color:#fff; font-size:28px;
+  opacity:0; transition:1.5s; z-index:999;
+  text-shadow:0 0 15px rgba(255,150,200,.9);
 }
-@keyframes float{
-  from{transform:translateY(100vh) scale(.5);}
-  to{transform:translateY(-10vh) scale(1);}
+
+/* ====== ANIMASI TULIP (dari flower.html, ringkas) ====== */
+.flowers{position:absolute; bottom:0; left:0; right:0; height:70vh; pointer-events:none;}
+.flower{position:absolute; bottom:0; width:160px; animation:sway 5s ease-in-out infinite;}
+.flower--1{left:20%} .flower--2{left:45%} .flower--3{left:70%}
+
+@keyframes sway{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-6px) rotate(2deg)}
 }
+
+/* bentuk tulip sederhana */
+.tulip svg{width:100%; filter:drop-shadow(0 0 12px rgba(255,140,200,.8))}
 </style>
 </head>
+
 <body>
 
-<div class="text">
-  Lizzet ❤️<br>
-  I love you!
+<div class="night"></div>
+
+<!-- Tombol & Teks -->
+<div id="start" onclick="playLove()">❤️ Tekan Love</div>
+<h1 id="loveText">Lizzet ❤️<br>I love you!</h1>
+
+<!-- Musik -->
+<audio id="music" loop>
+  <source src="Music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ====== BUNGA TULIP (seperti di flower.html, disederhanakan) ====== -->
+<div class="flowers">
+  <div class="flower flower--1 tulip">
+    <svg viewBox="0 0 200 300">
+      <path d="M100 280 L100 120" stroke="#3cb371" stroke-width="6"/>
+      <ellipse cx="80" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <ellipse cx="120" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <path d="M60 120 C80 40 120 40 140 120 Z" fill="#ff9acb"/>
+      <ellipse cx="100" cy="115" rx="16" ry="10" fill="#fff3a0"/>
+    </svg>
+  </div>
+
+  <div class="flower flower--2 tulip">
+    <svg viewBox="0 0 200 300">
+      <path d="M100 280 L100 120" stroke="#3cb371" stroke-width="6"/>
+      <ellipse cx="80" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <ellipse cx="120" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <path d="M60 120 C80 40 120 40 140 120 Z" fill="#ff7fb6"/>
+      <ellipse cx="100" cy="115" rx="16" ry="10" fill="#fff3a0"/>
+    </svg>
+  </div>
+
+  <div class="flower flower--3 tulip">
+    <svg viewBox="0 0 200 300">
+      <path d="M100 280 L100 120" stroke="#3cb371" stroke-width="6"/>
+      <ellipse cx="80" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <ellipse cx="120" cy="150" rx="22" ry="40" fill="#4fd18b"/>
+      <path d="M60 120 C80 40 120 40 140 120 Z" fill="#ffa1cc"/>
+      <ellipse cx="100" cy="115" rx="16" ry="10" fill="#fff3a0"/>
+    </svg>
+  </div>
 </div>
 
-<!-- Bunga tulip -->
-<svg class="flower" viewBox="0 0 200 300">
-  <path d="M100 280 L100 120" stroke="#2ecc71" stroke-width="6"/>
-  <ellipse cx="80" cy="150" rx="25" ry="40" fill="#2ecc71"/>
-  <ellipse cx="120" cy="150" rx="25" ry="40" fill="#2ecc71"/>
-  <circle cx="100" cy="110" r="40" fill="#ff9acb"/>
-  <circle cx="100" cy="110" r="18" fill="#fff3a0"/>
-</svg>
-
-<audio id="music" src="music.mp3"></audio>
-
 <script>
-// mainkan musik saat layar disentuh
-document.body.addEventListener("click", function(){
-  document.getElementById("music").play();
-});
+function playLove(){
+  const music = document.getElementById("music");
+  const start = document.getElementById("start");
+  const text  = document.getElementById("loveText");
 
-// hati melayang
-function spawnHeart(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(20+Math.random()*30)+"px";
-  h.style.animationDuration=(8+Math.random()*5)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),15000);
+  music.currentTime = 0;
+  music.play().catch(()=>{});
+  start.style.display = "none";
+  text.style.opacity = 1;
 }
-setInterval(spawnHeart,600);
 </script>
 
 </body>
